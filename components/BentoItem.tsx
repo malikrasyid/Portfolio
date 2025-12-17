@@ -15,7 +15,7 @@ export default function BentoItem({ children, className }: BentoItemProps) {
         "bg-white dark:bg-zinc-900",
         
         // 2. Shape & Spacing
-        "rounded-3xl p-6",
+        "rounded-3xl p-8",
         "flex flex-col justify-between",
         
         // 3. THE NEW STYLE: No border, soft shadow

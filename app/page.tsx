@@ -59,29 +59,56 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-zinc-900 dark:to-black p-4 md:p-8 flex justify-center">      
-      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-4 grid-rows-auto gap-4">
+      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-4 grid-rows-auto gap-6">
         
         {/* PROFILE CARD */}
-        <BentoItem className="md:col-span-2 md:row-span-2 min-h-[300px]">
-          <div className="flex flex-col h-full justify-center">
-            
-            {/* IMAGE CONTAINER */}
-            <div className="w-24 h-24 bg-zinc-200 rounded-full mb-4 overflow-hidden border-2 border-zinc-100 dark:border-zinc-700">
-              <img 
-                src="/images/me.jpg" 
-                alt="Malik Al Rasyidi" 
-                className="w-full h-full object-cover"
-              />
-            </div>
+<BentoItem className="md:col-span-2 md:row-span-2 min-h-[320px] relative overflow-hidden group">
+  
+  {/* 1. Subtle Background Glow (Optional aesthetics) */}
+  <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
 
-            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
-              Hello, I'm Malik.
-            </h1>
-            <p className="text-zinc-500 mt-2">
-              Fullstack Developer. I build cross-platform apps and scalable backends using .NET and Node.js.
-            </p>
-          </div>
-        </BentoItem>
+  <div className="flex flex-col h-full justify-between relative z-10">
+    
+    {/* TOP SECTION: Image + Status Badge */}
+    <div className="flex justify-between items-start">
+      {/* Image: Changed to Rounded Square for a sharper look */}
+      <div className="w-20 h-20 bg-slate-800 rounded-2xl overflow-hidden shadow-inner">
+        <img 
+          src="/images/me.jpg" 
+          alt="Malik" 
+          className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+
+      {/* Status Badge */}
+      <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span className="text-[10px] font-medium text-emerald-400 uppercase tracking-wider">
+          Open to Work
+        </span>
+      </div>
+    </div>
+
+    {/* BOTTOM SECTION: Text */}
+    <div>
+      <h1 className="text-3xl font-semibold text-slate-100 tracking-tight">
+        Malik Al Rasyidi
+      </h1>
+      <p className="text-indigo-400 font-medium text-sm mt-1 mb-4">
+        Fullstack Developer
+      </p>
+      
+      <p className="text-slate-400 text-sm leading-relaxed max-w-md">
+        I build accessible, pixel-perfect user interfaces and scalable backends. 
+        Currently rewriting <span className="text-slate-200 font-medium">JobTracker</span> in Node.js.
+      </p>
+    </div>
+
+  </div>
+</BentoItem>
 
         {/* SOCIAL LINKS */}
         <BentoItem className="md:col-span-2 flex-row items-center justify-center gap-6">
@@ -91,7 +118,7 @@ export default function Home() {
         </BentoItem>
 
         {/* TECH STACK */}
-        <BentoItem className="md:col-span-2 md:row-span-2">
+        <BentoItem className="md:col-span-2">
           <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Code2 size={20} /> Tech Stack
           </h3>
@@ -103,23 +130,6 @@ export default function Home() {
             ))}
           </div>
         </BentoItem>
-
-        {/* CURRENTLY LEARNING */}
-        <BentoItem className="md:col-span-2">
-          <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">
-            Currently Learning
-          </h3>
-          <p className="text-lg font-medium flex items-center gap-2">
-            <Database size={20} /> Pivot Tables & Data Analysis
-          </p>
-        </BentoItem>
-
-        {/* PROJECTS SECTION */}
-        <div className="md:col-span-4 mt-8 mb-4">
-          <h2 className="text-2xl font-bold text-zinc-800 dark:text-zinc-200">
-            Selected Projects
-          </h2>
-        </div>
 
         {projects.map((project, index) => (
           <ProjectCard
