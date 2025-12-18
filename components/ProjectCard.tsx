@@ -1,14 +1,16 @@
 import React from "react";
 import BentoItem from "./BentoItem";
 import { ArrowUpRight, Github } from "lucide-react";
+import { cn } from "../lib/utils"; // Assuming you have this, otherwise just use template literals
 
 interface ProjectCardProps {
   title: string;
   description: string;
   tags: string[];
   status?: "Live" | "In Progress" | "Concept" | "Beta";
-  href?: string; // Link to GitHub or Live Site
-  color?: string; // Optional background color tint
+  href?: string;
+  color?: string;
+  className?: string; // <--- Add this
 }
 
 export default function ProjectCard({
@@ -18,9 +20,9 @@ export default function ProjectCard({
   status = "In Progress",
   href = "#",
   color = "bg-blue-50 dark:bg-blue-900/20",
+  className,
 }: ProjectCardProps) {
   
-  // Helper to color the status badge
   const getStatusColor = (s: string) => {
     switch (s) {
       case "Live": return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
@@ -32,21 +34,20 @@ export default function ProjectCard({
 
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className="contents">
-      <BentoItem className={`md:col-span-2 md:row-span-2 group relative overflow-hidden ${color}`}>
+      {/* Removed fixed row/col spans, added className prop */}
+      <BentoItem className={cn("group relative overflow-hidden flex flex-col h-full", color, className)}>
         
-        {/* Hover Arrow (Only shows on hover) */}
         <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <ArrowUpRight className="text-zinc-400 dark:text-zinc-500" />
         </div>
 
         <div className="flex flex-col h-full justify-between z-10">
-          {/* Header */}
           <div>
             <div className="flex justify-between items-start mb-3">
-              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                 {title}
               </h3>
-              <span className={`text-xs font-bold px-2 py-1 rounded uppercase tracking-wide ${getStatusColor(status)}`}>
+              <span className={`text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide ${getStatusColor(status)}`}>
                 {status}
               </span>
             </div>
@@ -56,10 +57,7 @@ export default function ProjectCard({
             </p>
           </div>
 
-          {/* Bottom Section: Visual + Tags */}
           <div className="space-y-4">
-            
-            {/* Tech Tags */}
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <span key={tag} className="text-xs px-2 py-1 bg-white/50 dark:bg-black/20 rounded border border-black/5 dark:border-white/10">
@@ -68,7 +66,6 @@ export default function ProjectCard({
               ))}
             </div>
 
-            {/* Visual Placeholder (Mini Code Editor Look) */}
             <div className="w-full h-24 bg-white/40 dark:bg-black/20 rounded-xl border border-black/5 dark:border-white/5 p-3 flex gap-2 items-center justify-center overflow-hidden">
                 <Github className="text-zinc-400/50" size={40} />
             </div>
