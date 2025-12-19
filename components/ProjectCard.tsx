@@ -33,7 +33,7 @@ export default function ProjectCard({
   };
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="contents">
+    <div>
       {/* Removed fixed row/col spans, added className prop */}
       <BentoItem className={cn("group relative overflow-hidden flex flex-col h-full", color, className)}>
         
@@ -66,12 +66,19 @@ export default function ProjectCard({
               ))}
             </div>
 
-            <div className="w-full h-24 bg-white/40 dark:bg-black/20 rounded-xl border border-black/5 dark:border-white/5 p-3 flex gap-2 items-center justify-center overflow-hidden">
-                <Github className="text-zinc-400/50" size={40} />
+            <div className="flex gap-3">
+              <a href={href} target="_blank" className="flex items-center gap-2 px-4 py-2 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-lg text-sm font-semibold hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors">
+                <Github size={16} /> Source
+              </a>
+              {/* {liveUrl && (
+                <a href={liveUrl} target="_blank" className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-lg text-sm font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
+                  <ExternalLink size={16} /> Demo
+                </a>
+              )} */}
             </div>
           </div>
         </div>
       </BentoItem>
-    </a>
+    </div>
   );
 }

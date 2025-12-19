@@ -52,7 +52,7 @@ export default function ProjectShowcase({
     <div className="md:col-span-4">
       <BentoItem className="p-0 overflow-hidden border-zinc-200 dark:border-white/10">
         
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="p-2 grid grid-cols-1 md:grid-cols-3">
           
           {/* === LEFT COLUMN: IMAGE === */}
           <div className={cn(
