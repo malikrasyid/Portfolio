@@ -19,7 +19,7 @@ export const frontendProjects = [
       title: "Task Sphere",
       description: "A collaborative project management tool inspired by Trello. Supports real-time updates, team workspaces, and task assignment.",
       tags: ["Vue", "Pinia", "Tailwind", "Socket.io"],
-      status: "In Progress",
+      status: "Live",
       href: "https://github.com/malikrasyid/Task-Sphere_Website",
       liveUrl: "https://task-sphere-website.vercel.app",
       images: [
@@ -39,7 +39,7 @@ export const frontendProjects = [
       title: "SubsTracker",
       description: "Mobile application for tracking monthly subscriptions. Features notification reminders and spending analysis charts.",
       tags: [".NET MAUI", "C#", "XAML", "Mobile"],
-      status: "Beta",
+      status: "In Progress",
       href: "https://github.com/malikrasyid/SubsTracker",
       images: ["/images/substracker.png"],
       orientation: "portrait" // Portrait for Mobile
@@ -58,14 +58,14 @@ export const frontendProjects = [
       title: "JobTracker API (Node)",
       description: "Experimental rewrite of the backend using Node.js/Express for lightweight deployment.",
       tags: ["Node.js", "Express", "TypeScript"],
-      status: "In Progress",
+      status: "Live",
       href: "#"
     },
     {
       title: "Task Sphere API",
       description: "Dedicated backend for Task Sphere handling real-time updates via WebSockets.",
       tags: ["Node.js", "MongoDB", "Socket.io"],
-      status: "In Progress",
+      status: "Live",
       href: "#"
     }
   ];
