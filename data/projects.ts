@@ -41,7 +41,13 @@ export const frontendProjects = [
       tags: [".NET MAUI", "C#", "XAML", "Mobile"],
       status: "In Progress",
       href: "https://github.com/malikrasyid/SubsTracker",
-      images: ["/images/substracker.png"],
+      images: [
+        "/images/jobtracker/1.png", 
+        "/images/jobtracker/2.png",
+        "/images/jobtracker/3.png",
+        "/images/jobtracker/4.png",
+        "/images/jobtracker/5.png"
+      ],
       orientation: "portrait" // Portrait for Mobile
     }
   ];

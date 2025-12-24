@@ -6,13 +6,13 @@ export const skillCategories = [
     icon: Code2,
     iconColor: "text-amber-500",
     skills: [
-      "Software Development Lifecycle (SDLC)", 
-      "RESTful API Design", 
+      "SDLC", 
+      "REST APIs", 
       "Microservices", 
-      "CI/CD Pipelines", 
-      "Database Design",
-      "Unit & Integration Testing", 
-      "Clean Architecture"
+      "CI/CD", 
+      "DB Design",
+      "Testing", 
+      "Clean Arch"
     ]
   },
   {

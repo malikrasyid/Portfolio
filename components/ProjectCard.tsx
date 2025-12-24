@@ -35,16 +35,12 @@ export default function ProjectCard({
   return (
     <div>
       {/* Removed fixed row/col spans, added className prop */}
-      <BentoItem className={cn("group relative overflow-hidden flex flex-col h-full", color, className)}>
-        
-        <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <ArrowUpRight className="text-zinc-400 dark:text-zinc-500" />
-        </div>
-
+      <BentoItem className="bg-white group relative overflow-hidden flex flex-col h-full">
+                
         <div className="flex flex-col h-full justify-between z-10">
           <div>
             <div className="flex justify-between items-start mb-3">
-              <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 transition-colors">
                 {title}
               </h3>
               <span className={`text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide ${getStatusColor(status)}`}>
@@ -60,7 +56,7 @@ export default function ProjectCard({
           <div className="space-y-4">
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <span key={tag} className="text-xs px-2 py-1 bg-white/50 dark:bg-black/20 rounded border border-black/5 dark:border-white/10">
+                <span key={tag} className="text-xs px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 rounded border border-black/5 dark:border-white/10">
                   {tag}
                 </span>
               ))}

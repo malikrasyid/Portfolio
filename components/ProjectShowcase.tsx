@@ -50,18 +50,16 @@ export default function ProjectShowcase({
   
   return (
     <div className="md:col-span-4">
-      <BentoItem className="p-0 overflow-hidden border-zinc-200 dark:border-white/10">
+      <BentoItem className="p-0 overflow-hidden bg-white border-zinc-200 dark:border-white/10">
         
         <div className="p-2 grid grid-cols-1 md:grid-cols-3">
           
           {/* === LEFT COLUMN: IMAGE === */}
           <div className={cn(
-            "relative group border-b md:border-b-0 border-zinc-200 dark:border-white/5 overflow-hidden",
-            // Mobile: Fixed height (h-64)
-            // Desktop: Custom height per user request (337.5px for landscape)
+            "relative group border-b md:border-b-0 border-zinc-200 dark:border-white/5",
             "h-64", 
             isLandscape 
-              ? "md:col-span-2 md:h-[337.5px] bg-zinc-100 dark:bg-black/20" 
+              ? "md:col-span-2 md:h-[337.5px] bg-zinc-100 dark:bg-black/20 overflow-visible z-20" 
               : "md:col-span-1 md:aspect-[9/20] md:h-[400px] flex flex-col justify-center items-center overflow-visible w-full"
           )}>
             
@@ -74,9 +72,9 @@ export default function ProjectShowcase({
                     "transition-transform duration-500 block",
                     isLandscape 
                       // Landscape Image: Fills the box
-                      ? "w-full h-full object-cover"  
+                      ? "w-full h-full object-cover border-r border-black/5 dark:border-white/10 shadow-2xl shadow-indigo-500/20 dark:shadow-indigo-900/40"  
                       // Portrait Image: Auto width, Margin Auto (Critical for centering), Fits height
-                      : "h-full w-auto mx-auto object-contain shadow-2xl rounded-[1.5rem]" 
+                      : "h-full w-auto mx-auto object-contain shadow-2xl shadow-indigo-500/20 dark:shadow-indigo-900/40 rounded-[1.5rem]" 
                   )}
                 />
                 

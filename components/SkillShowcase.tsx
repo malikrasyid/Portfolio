@@ -20,13 +20,16 @@ export default function SkillShowcase() {
             </div>
 
             {/* Skills List */}
-            <div className="flex flex-wrap gap-2">
-              {category.skills.map((tech) => (
-                <span 
-                  key={tech} 
-                  className="px-3 py-1.5 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg text-xs font-medium border border-zinc-200 dark:border-zinc-700/50 text-zinc-700 dark:text-zinc-300 hover:bg-white dark:hover:bg-zinc-800 transition-all cursor-default"
-                >
-                  {tech}
+            <div className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+              {category.skills.map((tech, i) => (
+                <span key={tech} className="inline-block">
+                  <span className="hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors cursor-default">
+                    {tech}
+                  </span>
+                  {/* Add a subtle dot separator unless it's the last item */}
+                  {i !== category.skills.length - 1 && (
+                    <span className="mx-2 text-zinc-300 dark:text-zinc-700 select-none">•</span>
+                  )}
                 </span>
               ))}
             </div>
