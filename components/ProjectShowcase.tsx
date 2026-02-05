@@ -1,20 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import BentoItem from "./BentoItem";
-import { Github, ExternalLink, ChevronLeft, ChevronRight, Layers } from "lucide-react";
-import { cn } from "../lib/utils"; 
-
-interface ProjectShowcaseProps {
-  title: string;
-  description: string;
-  tags: string[];
-  status?: "Live" | "In Progress" | "Concept" | "Beta";
-  images: string[];
-  href?: string;
-  liveUrl?: string;
-  orientation?: "landscape" | "portrait";
-}
+import { ProjectData } from "../data/projects";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
+import { cn } from "../lib/utils";
 
 export default function ProjectShowcase({
   title,
@@ -25,18 +15,13 @@ export default function ProjectShowcase({
   href = "#",
   liveUrl,
   orientation = "landscape",
-}: ProjectShowcaseProps) {
+}: ProjectData) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const nextSlide = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setCurrentSlide((prev) => (prev + 1) % images.length);
-  };
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % images.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
 
-  const prevSlide = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+  const optimizedUrl = images[currentSlide].replace('/upload/', '/upload/f_auto,q_auto,w_1200/');
 
   const getStatusColor = (s: string) => {
     switch (s) {
@@ -46,103 +31,79 @@ export default function ProjectShowcase({
     }
   };
 
-  const isLandscape = orientation === "landscape";
-  
+  const isPortrait = orientation === "portrait";
+
   return (
-    <div className="md:col-span-4">
-      <BentoItem className="p-0 overflow-hidden bg-white border-zinc-200 dark:border-white/10">
-        
-        <div className="p-2 grid grid-cols-1 md:grid-cols-3">
-          
-          {/* === LEFT COLUMN: IMAGE === */}
-          <div className={cn(
-            "relative group border-b md:border-b-0 border-zinc-200 dark:border-white/5",
-            "h-64", 
-            isLandscape 
-              ? "md:col-span-2 md:h-[337.5px] bg-zinc-100 dark:bg-black/20 overflow-visible z-20" 
-              : "md:col-span-1 md:aspect-[9/20] md:h-[400px] flex flex-col justify-center items-center overflow-visible w-full"
-          )}>
-            
-            {images.length > 0 ? (
-              <>
-                <img
-                  src={images[currentSlide]}
-                  alt={`${title} screenshot ${currentSlide + 1}`}
-                  className={cn(
-                    "transition-transform duration-500 block",
-                    isLandscape 
-                      // Landscape Image: Fills the box
-                      ? "w-full h-full object-cover border-r border-black/5 dark:border-white/10 shadow-2xl shadow-indigo-500/20 dark:shadow-indigo-900/40"  
-                      // Portrait Image: Auto width, Margin Auto (Critical for centering), Fits height
-                      : "h-full w-auto mx-auto object-contain shadow-2xl shadow-indigo-500/20 dark:shadow-indigo-900/40 rounded-[1.5rem]" 
-                  )}
-                />
-                
-                {/* Navigation Arrows */}
-                {images.length > 1 && (
-                  <>
-                    <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 dark:bg-black/60 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110 z-10">
-                      <ChevronLeft size={20} />
-                    </button>
-                    <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 dark:bg-black/60 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110 z-10">
-                      <ChevronRight size={20} />
-                    </button>
-                    
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                      {images.map((_, idx) => (
-                        <div key={idx} className={`w-2 h-2 rounded-full transition-colors shadow-sm ${idx === currentSlide ? "bg-white" : "bg-white/40"}`} />
-                      ))}
-                    </div>
-                  </>
-                )}
-              </>
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-zinc-400">
-                <Layers size={48} opacity={0.2} />
-              </div>
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-10 border-t border-zinc-100 transition-colors duration-500 hover:border-zinc-900/10">
+      {/* IMAGE AREA */}
+      <div className="lg:col-span-7 relative group flex justify-center">
+        <div className={cn(
+          "bg-zinc-50 rounded-xl overflow-hidden relative border border-zinc-100",
+          isPortrait ? "aspect-[9/16] h-[500px]" : "aspect-video w-full"
+        )}>          
+        <AnimatePresence mode="wait">
+            <motion.img
+              key={currentSlide}
+              src={optimizedUrl}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className={cn(
+                "w-full h-full grayscale-[0.5] hover:grayscale-0 transition-all duration-700",
+                isPortrait ? "object-contain p-4" : "object-cover"
+              )}
+              alt={`${title} view ${currentSlide + 1}`}
+            />
+          </AnimatePresence>
+
+          {/* Minimalist Image Nav */}
+          {images.length > 1 && (
+            <div className="absolute bottom-4 right-4 flex gap-2">
+              <button onClick={prevSlide} className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-colors">
+                <ChevronLeft size={16} />
+              </button>
+              <button onClick={nextSlide} className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-colors">
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* CONTENT AREA - Mirrored after the Backend style */}
+      <div className="lg:col-span-5 flex flex-col justify-between py-2">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+             <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+                {status}
+             </span>
+          </div>
+          <h3 className="text-3xl font-bold tracking-tight">{title}</h3>
+          <p className="text-sm text-zinc-500 leading-relaxed font-medium max-w-md">
+            {description}
+          </p>
+        </div>
+
+        <div className="space-y-6 mt-8">
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            {tags.map((tag) => (
+              <span key={tag} className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-tight">#{tag}</span>
+            ))}
+          </div>
+
+          <div className="flex gap-6">
+            <a href={href} target="_blank" className="inline-flex items-center gap-2 text-xs font-bold text-black border-b border-black pb-0.5 hover:gap-3 transition-all">
+              <Github size={14} /> Repository
+            </a>
+            {liveUrl && (
+              <a href={liveUrl} target="_blank" className="inline-flex items-center gap-2 text-xs font-bold text-black border-b border-black pb-0.5 hover:gap-3 transition-all">
+                <ExternalLink size={14} /> Live Demo
+              </a>
             )}
           </div>
-
-          {/* === RIGHT COLUMN: DETAILS === */}
-          <div className={cn(
-            "pl-8 md:pl-8 flex flex-col justify-between",
-            // Ensure details column matches height or expands properly
-            isLandscape ? "md:col-span-1" : "md:col-span-2"
-          )}>
-            <div>
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 leading-tight">{title}</h3>
-                <span className={`text-[10px] md:text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider ${getStatusColor(status)}`}>
-                  {status}
-                </span>
-              </div>
-
-              <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6 line-clamp-4">
-                {description}
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-6">
-                {tags.map((tag) => (
-                  <span key={tag} className="text-xs md:text-sm px-2 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-lg font-medium border border-zinc-200 dark:border-white/5">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <a href={href} target="_blank" className="flex items-center gap-2 px-4 py-2 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-lg text-sm font-semibold hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors">
-                <Github size={16} /> Source
-              </a>
-              {liveUrl && (
-                <a href={liveUrl} target="_blank" className="flex items-center gap-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-lg text-sm font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
-                  <ExternalLink size={16} /> Demo
-                </a>
-              )}
-            </div>
-          </div>
         </div>
-      </BentoItem>
+      </div>
     </div>
   );
 }

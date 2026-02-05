@@ -1,81 +1,116 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import ProfileShowcase from "../components/ProfileShowcase";
 import ProjectCard from "../components/ProjectCard";
 import SkillShowcase from "../components/SkillShowcase";
 import ProjectShowcase from "../components/ProjectShowcase";
-import { Github, Linkedin, Mail, Code2, MapPin, Database, Terminal, Cpu, Globe } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { frontendProjects, backendProjects } from "../data/projects";
 
 export default function Home() {
-  
+  const [feIdx, setFeIdx] = useState(0);
+  const [beIdx, setBeIdx] = useState(0);
+  const projectsPerPage = 3;
+  const maxBeIdx = Math.max(0, backendProjects.length - projectsPerPage);
+
   return (
-    <main className="min-h-screen bg-zinc-50 dark:bg-black relative flex justify-center p-4 md:p-8 text-zinc-900 dark:text-zinc-100 overflow-x-hidden selection:bg-indigo-500/30">      
-      <div className="fixed inset-0 z-0 pointer-events-none w-full h-full overflow-hidden">
-        {/* 1. Top Left Blob (CYAN) - Replaced Indigo for a fresher look */}
-        <div className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] bg-cyan-500/10 dark:bg-cyan-500/10 rounded-full blur-[100px]" />
+    <main className="min-h-screen bg-white text-zinc-900 selection:bg-indigo-100 selection:text-indigo-900 pb-20">
+      
+      {/* SECTION PROFILE */}
+      <section className="max-w-6xl mx-auto px-6">
+        <ProfileShowcase />
+      </section>
+
+      {/* SECTION FRONTEND */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-3xl font-black tracking-tight">Featured Projects</h2>
+            <p className="text-sm text-zinc-400 font-medium mt-1">Specializing in React, Vue, and Native Android.</p>
+          </div>
+          <div className="flex gap-1">
+            <button 
+              onClick={() => setFeIdx(Math.max(0, feIdx - 1))} 
+              className="p-2 disabled:opacity-20"
+              disabled={feIdx === 0}
+            >
+              <ChevronLeft size={20}/>
+            </button>
+            <button 
+              onClick={() => setFeIdx(Math.min(frontendProjects.length - 1, feIdx + 1))} 
+              className="p-2 disabled:opacity-20"
+              disabled={feIdx === frontendProjects.length - 1}
+            >
+              <ChevronRight size={20}/>
+            </button>
+          </div>
+        </div>
+
+        <div className="overflow-hidden">
+          <motion.div 
+            className="flex" 
+            animate={{ x: `-${feIdx * 100}%` }} 
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+          >
+            {frontendProjects.map((project, i) => (
+              <div key={i} className="min-w-full">
+                <ProjectShowcase 
+                  {...project} 
+                  status={project.status as any} 
+                  orientation={project.orientation as any}
+                />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SECTION BACKEND */}
+      <section className="bg-zinc-50/50 py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex justify-between items-end mb-12">
+            <h2 className="text-3xl font-black tracking-tight">Backend & Architectures</h2>
+            <div className="flex gap-1">
+               <button 
+                onClick={() => setBeIdx(Math.max(0, beIdx - 1))} 
+                className="p-2 disabled:opacity-20" 
+                disabled={beIdx === 0}
+               >
+                <ChevronLeft size={20}/>
+               </button>
+               <button 
+                onClick={() => setBeIdx(Math.min(maxBeIdx, beIdx + 1))} 
+                className="p-2 disabled:opacity-20" 
+                disabled={beIdx === maxBeIdx}
+               >
+                <ChevronRight size={20}/>
+               </button>
+            </div>
+          </div>
           
-          {/* 2. Top Right Blob (EMERALD) */}
-          <div className="absolute -top-[10%] -right-[10%] w-[60vw] h-[60vw] bg-emerald-500/10 dark:bg-emerald-500/5 rounded-full blur-[100px]" />
-          
-          {/* 3. Bottom Left Blob (BLUE) */}
-          <div className="absolute -bottom-[10%] -left-[10%] w-[60vw] h-[60vw] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-[100px]" />
-
-          {/* 4. Bottom Right Blob (PURPLE) */}
-          <div className="absolute -bottom-[10%] -right-[10%] w-[60vw] h-[60vw] bg-purple-500/10 dark:bg-purple-500/10 rounded-full blur-[100px]" />
-          
-          {/* 5. Center Light (White) */}
-          <div className="absolute top-[25%] left-[25%] w-[60vw] h-[60vw] bg-white/40 dark:bg-zinc-800/10 rounded-full blur-[120px]" />               
-      </div>
-
-      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-4 auto-rows-auto gap-6 md:gap-6">        
-        {/* === HEADER / PROFILE SECTION (Centered & Merged) === */}
-        <ProfileShowcase/>
-
-        {/* === SECTION: FEATURED PROJECTS === */}
-        <div className="md:col-span-4 mt-4 mb-2">
-            <h2 className="text-2xl font-bold flex text-zinc-900 items-center gap-2">
-              <Globe/> Featured Projects
-            </h2>
+          <div className="overflow-hidden">
+            <motion.div 
+              className="flex gap-8" 
+              animate={{ x: `calc(-${beIdx * (100 / 3)}% - ${beIdx * 32}px)` }} 
+              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            >
+              {backendProjects.map((project, i) => (
+                <div key={i} className="min-w-[calc(100%/1)] md:min-w-[calc((100%-64px)/3)]">
+                  <ProjectCard {...project} status={project.status as any} />
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
+      </section>
 
-        {frontendProjects.map((project, index) => (
-          <ProjectShowcase
-            key={index}
-            {...project}
-            status={project.status as any}
-            orientation={project.orientation as any}
-          />
-        ))}
-
-
-        {/* === SECTION: BACKEND (3 Column Grid) === */}
-        <div className="md:col-span-4 mt-4 mb-2">
-            <h2 className="text-2xl font-bold flex text-zinc-900 items-center gap-2">
-                <Database/> Backend & APIs
-            </h2>
-        </div>
-
-        {/* Nested Grid Container for 3-Column Layout */}
-        <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {backendProjects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              {...project}
-              status={project.status as any}
-              color="bg-white dark:bg-zinc-900"
-            />
-          ))}
-        </div>
-
-        {/* === SKILLS SECTION === */}
-        <div className="md:col-span-4 mt-4 mb-2">
-          <h2 className="text-2xl font-bold flex text-zinc-900 items-center gap-2">
-              <Cpu/> Skills & Proficiency
-          </h2>
-        </div>
-        <SkillShowcase/>
-
-      </div>
+      {/* SECTION SKILLS */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <h2 className="text-3xl font-black tracking-tight mb-12">Technical Skills</h2>
+        <SkillShowcase />
+      </section>
     </main>
   );
 }

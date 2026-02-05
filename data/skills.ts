@@ -2,35 +2,18 @@ import { Code2, Terminal, Globe } from "lucide-react";
 
 export const skillCategories = [
   {
-    title: "Core Concepts",
-    icon: Code2,
-    iconColor: "text-amber-500",
-    skills: [
-      "SDLC", 
-      "REST APIs", 
-      "Microservices", 
-      "CI/CD", 
-      "DB Design",
-      "Testing", 
-      "Clean Arch"
-    ]
+    title: "Frontend Development",
+    description: "Building interactive, responsive, and performance-driven user interfaces.",
+    skills: ["React", "Vue", "Next.js", "Tailwind CSS", "TypeScript", "Kotlin (Native Android)"]
   },
   {
-    title: "Languages & Frameworks",
-    icon: Terminal,
-    iconColor: "text-indigo-500",
-    skills: [
-      "C# .NET", "Node.js", "TypeScript", "JavaScript", "Express",
-      "React", "Vue", "Next.js", "SQL", "HTML/CSS", "Kotlin"
-    ]
+    title: "Backend Engineering",
+    description: "Architecting scalable APIs and robust server-side logic.",
+    skills: [".NET Core", "Node.js", "Express", "SQL Server", "PostgreSQL", "MongoDB"]
   },
   {
-    title: "Tools & Platforms",
-    icon: Globe,
-    iconColor: "text-emerald-500",
-    skills: [
-      "Git & GitHub", "Docker", "Postman", "MongoDB", 
-      "PostgreSQL", "Figma", "VS Code", "Vercel"
-    ]
+    title: "Tools & Systems",
+    description: "Managing development lifecycles and infrastructure.",
+    skills: ["Git", "Docker", "Google Drive API", "Socket.io", "Vercel", "RESTful Design"]
   }
 ];
