@@ -1,9 +1,24 @@
 "use client";
 
-import React from "react";
-import { Github, Linkedin, Mail, MapPin } from "lucide-react";
+import React, { useState } from "react";
+import { Github, Linkedin, Mail, MapPin, Check } from "lucide-react";
 
 export default function ProfileShowcase() {
+  const [copied, setCopied] = useState(false);
+  const email = "malikalrasyidi001@gmail.com";
+
+  const handleCopy = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      // Reset the icon after 2 seconds
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy!", err);
+    }
+  };
+
   return (
     <div className="w-full pt-10 md:pt-16 pb-8 flex flex-col md:flex-row gap-8 md:gap-16 items-center md:items-start text-center md:text-left">
       <div className="relative group w-40 h-40 md:w-56 md:h-56">
@@ -33,14 +48,25 @@ export default function ProfileShowcase() {
 
         <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-5">
           <a href="https://github.com/malikrasyid" target="_blank" className="flex items-center gap-2 font-bold text-sm hover:text-indigo-600 transition-colors">
-            <Github size={24} /> github
+            <Github size={18} /> github
           </a>
-          <a href="#" className="flex items-center gap-2 font-bold text-sm hover:text-indigo-600 transition-colors">
-            <Linkedin size={24} /> linkedin
+          <a href="https://www.linkedin.com/in/malikalrasyidi" target="_blank" className="flex items-center gap-2 font-bold text-sm hover:text-indigo-600 transition-colors">
+            <Linkedin size={18} /> linkedin
           </a>
-          <a href="mailto:contact@malikrasyid.com" className="flex items-center gap-2 font-bold text-sm hover:text-indigo-600 transition-colors">
-            <Mail size={24} /> email
-          </a>
+          <button 
+            onClick={handleCopy}
+            className="text-xs md:text-sm font-bold flex items-center gap-1.5 hover:text-indigo-600 transition-colors cursor-pointer outline-none"
+            aria-label="Copy email address"
+          >
+            {copied ? (
+              <Check size={18} className="text-green-500" />
+            ) : (
+              <Mail size={18} />
+            )}
+            <span className={copied ? "text-green-600" : ""}>
+              {copied ? "copied!" : "email"}
+            </span>
+          </button>
         </div>
       </div>
     </div>
