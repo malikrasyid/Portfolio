@@ -25,7 +25,7 @@ export default function ProjectCard({
     <div className="group pt-8 border-t border-zinc-100 hover:border-black transition-colors duration-500 min-h-[280px] flex flex-col justify-between">
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
+          <span className={`text-[10px] font-black uppercase tracking-widest ${getStatusColor(status)} px-2 py-0.5 rounded`}>
             {status}
           </span>
         </div>

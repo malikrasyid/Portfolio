@@ -8,6 +8,7 @@ import SkillShowcase from "../components/SkillShowcase";
 import ProjectShowcase from "../components/ProjectShowcase";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { frontendProjects, backendProjects } from "../data/projects";
+import { cn } from "../lib/utils";
 
 export default function Home() {
   const [feIdx, setFeIdx] = useState(0);
@@ -24,8 +25,8 @@ export default function Home() {
       </section>
 
       {/* SECTION FRONTEND */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="flex justify-between items-end mb-12">
+      <section className="max-w-7xl mx-auto px-6 py-6">
+        <div className="flex justify-between items-end pb-10 border-b border-zinc-100">
           <div>
             <h2 className="text-3xl font-black tracking-tight">Featured Projects</h2>
             <p className="text-sm text-zinc-400 font-medium mt-1">Specializing in React, Vue, and Native Android.</p>
@@ -54,21 +55,30 @@ export default function Home() {
             animate={{ x: `-${feIdx * 100}%` }} 
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
           >
-            {frontendProjects.map((project, i) => (
-              <div key={i} className="min-w-full">
-                <ProjectShowcase 
-                  {...project} 
-                  status={project.status as any} 
-                  orientation={project.orientation as any}
-                />
-              </div>
-            ))}
+            {frontendProjects.map((project, i) => {
+              const isPortrait = project.orientation === "portrait";
+
+              return (
+                <div key={i} className="min-w-full">
+                  <div className={cn(
+                    "mx-auto transition-all duration-500",
+                    isPortrait ? "max-w-5xl" : "max-w-7xl"
+                  )}>
+                    <ProjectShowcase 
+                      {...project} 
+                      status={project.status as any} 
+                      orientation={project.orientation as any}
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
 
       {/* SECTION BACKEND */}
-      <section className="bg-zinc-50/50 py-16">
+      <section className="bg-zinc-50/50 pt-16 pb-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-end mb-12">
             <h2 className="text-3xl font-black tracking-tight">Backend & Architectures</h2>
@@ -107,8 +117,8 @@ export default function Home() {
       </section>
 
       {/* SECTION SKILLS */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-black tracking-tight mb-12">Technical Skills</h2>
+      <section className="max-w-6xl mx-auto px-16 py-16">
+        <h2 className="text-3xl font-black tracking-tight mb-8">Technical Skills</h2>
         <SkillShowcase />
       </section>
     </main>

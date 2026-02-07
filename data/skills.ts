@@ -1,19 +1,45 @@
-import { Code2, Terminal, Globe } from "lucide-react";
-
 export const skillCategories = [
   {
-    title: "Frontend Development",
-    description: "Building interactive, responsive, and performance-driven user interfaces.",
-    skills: ["React", "Vue", "Next.js", "Tailwind CSS", "TypeScript", "Kotlin (Native Android)"]
+    title: "Frontend Engineering",
+    description: "Crafting scalable user interfaces using Atomic Design principles and modular component architecture for maximum reusability.",
+    skills: [
+      "React & Next.js",
+      "Vue & Pinia",
+      "TypeScript",
+      "Tailwind CSS",
+      "Native Android (Kotlin)",
+      ".NET MAUI",
+      "State Management Patterns",
+      "Component-Driven Development",
+      "Performance Optimization"
+    ]
   },
   {
-    title: "Backend Engineering",
-    description: "Architecting scalable APIs and robust server-side logic.",
-    skills: [".NET Core", "Node.js", "Express", "SQL Server", "PostgreSQL", "MongoDB"]
+    title: "Backend & Business Logic",
+    description: "Architecting robust systems where complex business logic is decoupled from infrastructure using Clean Architecture and DDD.",
+    skills: [
+      ".NET Core / Web API",
+      "Node.js & Express",
+      "PostgreSQL (Relational)",
+      "MongoDB (NoSQL)",
+      "Scalable System Design",
+      "Modular Monoliths",
+      "Domain-Driven Design (DDD)",
+      "Business Logic Layering",
+      "Authentication & Authorization"
+    ]
   },
   {
-    title: "Tools & Systems",
-    description: "Managing development lifecycles and infrastructure.",
-    skills: ["Git", "Docker", "Google Drive API", "Socket.io", "Vercel", "RESTful Design"]
+    title: "Technical Strategy",
+    description: "Streamlining development lifecycles through automated CI/CD pipelines and modern infrastructure standards.",
+    skills: [
+      "RESTful API Design",
+      "CI/CD Pipelines",
+      "Git & Version Control",
+      "Vercel Deployment",
+      "Postman / API Testing",
+      "Agile Methodologies",
+      "Technical Documentation",
+    ]
   }
 ];

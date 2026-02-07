@@ -33,15 +33,21 @@ export default function ProjectShowcase({
 
   const isPortrait = orientation === "portrait";
 
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-10 border-t border-zinc-100 transition-colors duration-500 hover:border-zinc-900/10">
-      {/* IMAGE AREA */}
-      <div className="lg:col-span-7 relative group flex justify-center">
+return (
+    <div className={cn(
+      "grid grid-cols-1 gap-8 md:gap-12 py-10 transition-colors duration-500 hover:border-zinc-900/10",
+      isPortrait ? "lg:grid-cols-5" : "lg:grid-cols-12"
+    )}>
+      
+      <div className={cn(
+        "relative group flex justify-center items-center",
+        isPortrait ? "lg:col-span-2" : "lg:col-span-7"
+      )}>
         <div className={cn(
-          "bg-zinc-50 rounded-xl overflow-hidden relative border border-zinc-100",
-          isPortrait ? "aspect-[9/16] h-[500px]" : "aspect-video w-full"
-        )}>          
-        <AnimatePresence mode="wait">
+          "bg-zinc-50 rounded-xl overflow-hidden relative border border-zinc-100 w-full flex items-center justify-center",
+          "h-[300px] md:h-[400px] lg:h-[450px]" 
+        )}>
+          <AnimatePresence mode="wait">
             <motion.img
               key={currentSlide}
               src={optimizedUrl}
@@ -50,42 +56,44 @@ export default function ProjectShowcase({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               className={cn(
-                "w-full h-full grayscale-[0.5] hover:grayscale-0 transition-all duration-700",
-                isPortrait ? "object-contain p-4" : "object-cover"
+                "transition-all duration-700 grayscale-[0.5] hover:grayscale-0",
+                isPortrait ? "h-full w-auto object-contain p-4" : "w-full h-full object-cover"
               )}
               alt={`${title} view ${currentSlide + 1}`}
             />
           </AnimatePresence>
 
-          {/* Minimalist Image Nav */}
           {images.length > 1 && (
             <div className="absolute bottom-4 right-4 flex gap-2">
-              <button onClick={prevSlide} className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-colors">
-                <ChevronLeft size={16} />
+              <button onClick={prevSlide} className="p-1.5 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white">
+                <ChevronLeft size={14} />
               </button>
-              <button onClick={nextSlide} className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-colors">
-                <ChevronRight size={16} />
+              <button onClick={nextSlide} className="p-1.5 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white">
+                <ChevronRight size={14} />
               </button>
             </div>
           )}
         </div>
       </div>
 
-      {/* CONTENT AREA - Mirrored after the Backend style */}
-      <div className="lg:col-span-5 flex flex-col justify-between py-2">
+      {/* CONTENT AREA - Fills the same height */}
+      <div className={cn(
+        "flex flex-col justify-between py-2 lg:h-[450px]",
+        isPortrait ? "lg:col-span-3" : "lg:col-span-5"
+      )}>
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-             <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+             <span className={`text-[10px] font-black uppercase tracking-widest ${getStatusColor(status)} px-2 py-0.5 rounded`}>
                 {status}
              </span>
           </div>
-          <h3 className="text-3xl font-bold tracking-tight">{title}</h3>
-          <p className="text-sm text-zinc-500 leading-relaxed font-medium max-w-md">
+          <h3 className="text-2xl md:text-3xl font-bold tracking-tight">{title}</h3>
+          <p className="text-sm text-zinc-500 leading-relaxed font-medium">
             {description}
           </p>
         </div>
 
-        <div className="space-y-6 mt-8">
+        <div className="space-y-6 mt-8 lg:mt-0">
           <div className="flex flex-wrap gap-x-4 gap-y-1">
             {tags.map((tag) => (
               <span key={tag} className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-tight">#{tag}</span>
