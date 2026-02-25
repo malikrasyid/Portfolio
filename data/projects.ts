@@ -1,4 +1,11 @@
-export type ProjectStatus = "Live" | "In Progress" | "Concept" | "Beta";
+export type ProjectStatus = 
+"Live" | 
+"In Progress" | 
+"Concept" | 
+"Beta" |
+"Closed Beta" |
+"Source Code" |
+"Development";
 
 export type orientationType = "landscape" | "portrait";
 
@@ -33,6 +40,38 @@ export const frontendProjects: ProjectData[] = [
       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1770281620/9_l7iaby.png"
     ],
     orientation: "landscape"
+  },
+  {
+    title: "Sewing Management System",
+    description: "An enterprise-grade production tracking system designed to manage garment manufacturing workflows. Built with a focus on resource efficiency and real-time status updates.",
+    tags: ["PHP", "Laravel", "MySQL", "Bootstrap"],
+    status: "Source Code", 
+    href: "https://github.com/malikrasyid/sewing-management-system", 
+    images: [
+      "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913590/1_xavdjd.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913589/2_xj6wt6.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913590/3_a3entl.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913590/4_qgvtnv.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913590/5_evsowo.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913590/6_mn3gh0.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913589/7_pebsld.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913590/8_oqs2ty.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913590/9_smqour.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913591/10_bczsl4.png",
+       "https://res.cloudinary.com/dxdgpncgq/image/upload/v1771913591/11_ly4dbj.png"
+    ],
+    orientation: "landscape"
+  },
+  {
+    title: "Nexus Social",
+    description: "A high-performance real-time social networking application. Features instant messaging and notification systems powered by a distributed architecture.",
+    tags: ["React Native", "NestJS", "Socket.io", "RabbitMQ"],
+    status: "Development",
+    href: "https://github.com/malikrasyid/NexusSocial",
+    images: [
+       "https://placehold.co/720x1520/f4f4f5/a1a1aa?text=Mobile+App+WIP"
+    ],
+    orientation: "portrait" 
   },
   {
     title: "NexusERP",
@@ -102,6 +141,13 @@ export const backendProjects: ProjectData[] = [
     tags: ["Node.js", "Express", "REST API"],
     status: "Live",
     href: "https://github.com/malikrasyid/sikartu-api"
+  },
+  {
+    title: "Nexus Social API",
+    description: "The backend infrastructure for Nexus Social, utilizing NestJS and RabbitMQ for asynchronous message processing and Socket.io for persistent real-time connections.",
+    tags: ["Node.js", "NestJS", "RabbitMQ", "WebSockets"],
+    status: "Closed Beta",
+    href: "https://github.com/malikrasyid/nexus-social-backend"
   },
   {
     title: "NexusERP API",

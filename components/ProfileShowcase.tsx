@@ -55,7 +55,7 @@ export default function ProfileShowcase() {
           </a>
           <button 
             onClick={handleCopy}
-            className="text-xs md:text-sm font-bold flex items-center gap-1.5 hover:text-indigo-600 transition-colors cursor-pointer outline-none"
+            className="text-sm font-bold flex items-center gap-1.5 hover:text-indigo-600 transition-colors cursor-pointer outline-none"
             aria-label="Copy email address"
           >
             {copied ? (
