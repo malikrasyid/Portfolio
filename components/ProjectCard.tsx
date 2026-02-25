@@ -3,6 +3,7 @@
 import React from "react";
 import { ProjectData } from "../data/projects";
 import { Github, ArrowUpRight } from "lucide-react";
+import { getStatusColor } from "../lib/project-utils";
 
 export default function ProjectCard({ 
   title, 
@@ -11,15 +12,6 @@ export default function ProjectCard({
   status = "In Progress", 
   href = "#"
 }: ProjectData) {
-  
-  const getStatusColor = (s: string) => {
-    switch (s) {
-      case "Live": return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
-      case "Beta": return "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400";
-      case "In Progress": return "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400";
-      default: return "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-400";
-    }
-  };
 
   return (
     <div className="group pt-8 border-t border-zinc-100 hover:border-black transition-colors duration-500 min-h-[280px] flex flex-col justify-between">

@@ -5,6 +5,7 @@ import { ProjectData } from "../data/projects";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { cn } from "../lib/utils";
+import { getStatusColor } from "../lib/project-utils";
 
 export default function ProjectShowcase({
   title,
@@ -22,14 +23,6 @@ export default function ProjectShowcase({
   const prevSlide = () => setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
 
   const optimizedUrl = images[currentSlide].replace('/upload/', '/upload/f_auto,q_auto,w_1200/');
-
-  const getStatusColor = (s: string) => {
-    switch (s) {
-      case "Live": return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
-      case "Beta": return "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400";
-      default: return "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400";
-    }
-  };
 
   const isPortrait = orientation === "portrait";
 
