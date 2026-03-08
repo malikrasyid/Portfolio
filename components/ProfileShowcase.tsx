@@ -1,9 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Github, Linkedin, Mail, MapPin, Check } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Check, Download } from "lucide-react";
 
-export default function ProfileShowcase() {
+interface ProfileShowcaseProps {
+  onPrintClick?: () => void;
+}
+
+export default function ProfileShowcase({ onPrintClick }: ProfileShowcaseProps) {
   const [copied, setCopied] = useState(false);
   const email = "malikalrasyidi001@gmail.com";
 
@@ -66,6 +70,14 @@ export default function ProfileShowcase() {
             <span className={copied ? "text-green-600" : ""}>
               {copied ? "copied!" : "email"}
             </span>
+          </button>
+          <button 
+            onClick={onPrintClick}
+            className="md:ml-2 text-xs font-bold flex items-center gap-1.5 bg-white text-zinc-800 border border-zinc-200 px-3 py-1.5 rounded-full hover:border-zinc-900 hover:text-black hover:bg-zinc-50 transition-all cursor-pointer outline-none shadow-sm"
+            aria-label="Download Resume"
+          >
+            <Download size={14} />
+            resume
           </button>
         </div>
       </div>

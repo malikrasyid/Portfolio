@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import ProfileShowcase from "../components/ProfileShowcase";
 import ProjectCard from "../components/ProjectCard";
@@ -9,19 +9,46 @@ import ProjectShowcase from "../components/ProjectShowcase";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { frontendProjects, backendProjects } from "../data/projects";
 import { cn } from "../lib/utils";
+import { useReactToPrint } from "react-to-print"; 
+import { PrintableResume } from "../components/PrintableResume";
 
 export default function Home() {
   const [feIdx, setFeIdx] = useState(0);
   const [beIdx, setBeIdx] = useState(0);
-  const projectsPerPage = 3;
-  const maxBeIdx = Math.max(0, backendProjects.length - projectsPerPage);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const cardsPerView = isMobile ? 1 : 3;
+  const maxBeIdx = Math.max(0, backendProjects.length - cardsPerView);
+
+  useEffect(() => {
+    if (beIdx > maxBeIdx) setBeIdx(maxBeIdx);
+  }, [maxBeIdx, beIdx]);
+
+  const beAnimateX = isMobile 
+    ? `calc(-${beIdx} * (100% + 32px))` 
+    : `calc(-${beIdx} * ((100% - 64px) / 3 + 32px))`;
+
+  const componentRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({
+    contentRef: componentRef,
+    documentTitle: "Malik_Al_Rasyidi_Portfolio",
+  });
+  
   return (
     <main className="min-h-screen bg-white text-zinc-900 selection:bg-indigo-100 selection:text-indigo-900 pb-20">
-      
+
       {/* SECTION PROFILE */}
       <section className="max-w-6xl mx-auto px-6">
-        <ProfileShowcase />
+        <ProfileShowcase onPrintClick={handlePrint} />
       </section>
 
       {/* SECTION FRONTEND */}
@@ -103,7 +130,7 @@ export default function Home() {
           <div className="overflow-hidden">
             <motion.div 
               className="flex gap-8" 
-              animate={{ x: `calc(-${beIdx * (100 / 3)}% - ${beIdx * 32}px)` }} 
+              animate={{ x: beAnimateX }} 
               transition={{ type: "spring", stiffness: 200, damping: 25 }}
             >
               {backendProjects.map((project, i) => (
@@ -121,6 +148,10 @@ export default function Home() {
         <h2 className="text-3xl font-black tracking-tight mb-8">Technical Skills</h2>
         <SkillShowcase />
       </section>
+
+      <div style={{ display: "none" }}>
+        <PrintableResume ref={componentRef} />
+      </div>
     </main>
   );
 }
